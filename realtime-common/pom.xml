@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>realtime-common</artifactId>
-
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -66,6 +65,7 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>io.lettuce</groupId>
