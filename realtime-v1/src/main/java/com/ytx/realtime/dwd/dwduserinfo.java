@@ -141,26 +141,26 @@ public class dwduserinfo extends BaseApp implements Serializable {
 
 
         // 4. 执行关联查询
-        Table result = tableEnv.sqlQuery(
-                "SELECT " +
-                        "  u.after['id'] AS user_id, " +
-                        "  u.after['name'] AS user_name, " +
-                        "  u.after['phone_num'] AS phone, " +
-                        "  u.after['email'] AS email, " +
-                        "  u.after['birthday'] AS birthday, " +
-                        "  u.after['age'] AS age, " +
-                        "  u.after['age_group'] AS age_group, " +
-                        "  o.after['order_id'] AS last_order_id, " +
-                        "  c.after['comment_text'] AS last_comment, " +
-                        "  t.after['tm_name'] AS favorite_brand " +
-                        "FROM user_info u " +
-                        "LEFT JOIN order_detail o ON u.after['id'] = o.after['user_id'] " +
-                        "LEFT JOIN comment_info c ON u.after['id'] = c.after['user_id'] " +
-                        "LEFT JOIN base_trademark t ON u.after['favorite_brand_id'] = t.after['id']"
-        );
-//
-//        // 5. 输出结果
-        result.execute().print();
+//        Table result = tableEnv.sqlQuery(
+//                "SELECT " +
+//                        "  u.after['id'] AS user_id, " +
+//                        "  u.after['name'] AS user_name, " +
+//                        "  u.after['phone_num'] AS phone, " +
+//                        "  u.after['email'] AS email, " +
+//                        "  u.after['birthday'] AS birthday, " +
+//                        "  u.after['age'] AS age, " +
+//                        "  u.after['age_group'] AS age_group, " +
+//                        "  o.after['order_id'] AS last_order_id, " +
+//                        "  c.after['comment_text'] AS last_comment, " +
+//                        "  t.after['tm_name'] AS favorite_brand " +
+//                        "FROM user_info u " +
+//                        "LEFT JOIN order_detail o ON u.after['id'] = o.after['user_id'] " +
+//                        "LEFT JOIN comment_info c ON u.after['id'] = c.after['user_id'] " +
+//                        "LEFT JOIN base_trademark t ON u.after['favorite_brand_id'] = t.after['id']"
+//        );
+////
+////        // 5. 输出结果
+//        result.execute().print();
     }
     private String calculateAgeGroup(int age) {
         if (age < 18) return "Under 18";
