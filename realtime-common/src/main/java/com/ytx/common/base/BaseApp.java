@@ -17,12 +17,12 @@ public abstract class BaseApp {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment(conf);
         // enable checkpoint
-        env.enableCheckpointing(3000);
+//        env.enableCheckpointing(3000);
         env.setParallelism(parallelism);
 //        开启检查点
-        env.enableCheckpointing(5000L, CheckpointingMode.EXACTLY_ONCE);
+//        env.enableCheckpointing(5000L, CheckpointingMode.EXACTLY_ONCE);
 //    设置检查点超时时间
-        env.getCheckpointConfig().setCheckpointTimeout(6000L);
+//        env.getCheckpointConfig().setCheckpointTimeout(6000L);
         //2.4 设置两个检查点之间最小时间间隔
         env.getCheckpointConfig().setMinPauseBetweenCheckpoints(2000L);
         //2.5 设置重启策略
@@ -38,7 +38,7 @@ public abstract class BaseApp {
         env.execute();
     }
 
-    public abstract void handle(StreamExecutionEnvironment env, DataStreamSource<String> kafkaSource) ;
+    public abstract void handle(StreamExecutionEnvironment env, DataStreamSource<String> kafkaSource) throws Exception;
 
 
 

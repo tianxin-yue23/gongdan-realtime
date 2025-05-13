@@ -18,7 +18,7 @@ public class flinkcdc {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // enable checkpoint
-        env.enableCheckpointing(3000);
+//        env.enableCheckpointing(3000);
         env.setParallelism(4);
         Properties prop = new Properties();
         prop.put("useSSL","false");
@@ -30,7 +30,7 @@ public class flinkcdc {
                 .hostname("10.160.60.17")
                 .port(3306)
                 .databaseList("realtime_v1") // 设置捕获的数据库， 如果需要同步整个数据库，请将 tableList 设置为 ".*".
-                .tableList("realtime_v1.*") // 设置捕获的表
+                .tableList("realtime_v1.user_info_sup_msg") // 设置捕获的表
                 .username("root")
                 .password("Zh1028,./")
               .startupOptions(StartupOptions.initial())  // 从最早位点启动
