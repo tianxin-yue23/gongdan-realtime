@@ -149,11 +149,20 @@
 
         <dependencies>
 
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
+            <!-- gongdan-realtime-v1/pom.xml -->
+
+                    <dependency>
+                        <groupId>com.alibaba</groupId>
+                        <artifactId>fastjson</artifactId>
+                        <version>${fastjson.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-auth</artifactId>
+                        <version>${hadoop.version}</version>
+                    </dependency>
+
+
 
             <dependency>
                 <groupId>org.apache.flink</groupId>
