@@ -1,10 +1,7 @@
 package com.ytx.realtime.dwd;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ytx.common.constant.Constant;
-
-
 import com.ytx.common.util.FlinkSinkUtil;
 import com.ytx.common.util.HBaseUtil;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -22,7 +19,6 @@ import org.apache.flink.streaming.api.functions.co.ProcessJoinFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
 import org.apache.hadoop.hbase.client.Connection;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.MonthDay;
@@ -184,7 +180,7 @@ public class Userlog  {
 //                        FlinkSinkUtil.getKafkaSink(
 //                                Constant.TOPIC_USER)
 //                );
-
+//        orderdetailds.print();
         SingleOutputStreamOperator<JSONObject> result3 = orderdetailds.keyBy(data -> data.getJSONObject("after").getInteger("order_id")).intervalJoin(orderinfods.keyBy(data -> data.getJSONObject("after").getInteger("id")))
                 .between(Time.days(-1), Time.days(1))
                 .process(new ProcessJoinFunction<JSONObject, JSONObject, JSONObject>() {
@@ -196,7 +192,7 @@ public class Userlog  {
                         result.put("sku_id", detail.getJSONObject("after").getInteger("sku_id"));
                         result.put("sku_name", detail.getJSONObject("after").getString("sku_name"));
                         result.put("sku_num", detail.getJSONObject("after").getInteger("sku_num"));
-                        result.put("create_time", info.getJSONObject("after").getString("create_time"));
+                        result.put("create_time", info.getJSONObject("after").getDate("create_time"));
                         result.put("user_id", info.getJSONObject("after").getInteger("user_id"));
                         result.put("total_amount", info.getJSONObject("after").getBigDecimal("total_amount"));
                         result.put("original_total_amount", info.getJSONObject("after").getBigDecimal("original_total_amount"));
@@ -265,8 +261,6 @@ public class Userlog  {
          SingleOutputStreamOperator<JSONObject> category3 = tm.map(
                 new RichMapFunction<JSONObject, JSONObject>() {
                     private Connection hbaseConn;
-                    private Connection hbaseConn2;
-                    private Connection hbaseConn3;
                     @Override
                     public void open(Configuration parameters) throws Exception {
                         hbaseConn = HBaseUtil.getHBaseConnection();
@@ -342,6 +336,18 @@ public class Userlog  {
                 }
         );
 //        category1.print();
+        KafkaSource<String> source3 = KafkaSource.<String>builder()
+                .setBootstrapServers("cdh02:9092")
+                .setTopics("tianxin_yue_dwd_traffic_page")
+                .setGroupId("my-group")
+                .setStartingOffsets(OffsetsInitializer.earliest())
+                .setValueOnlyDeserializer(new SimpleStringSchema())
+                .build();
+
+        DataStreamSource<String> kafkaStrds1 = env.fromSource(source3, WatermarkStrategy.noWatermarks(), "Kafka Source");
+        SingleOutputStreamOperator<JSONObject> pagelog = kafkaStrds1.map(JSON::parseObject);
+//        pagelog.print();
+
 
         //        category1.map(js -> js.toJSONString())
 //                .sinkTo(
@@ -383,7 +389,12 @@ public class Userlog  {
                     }
                 });
 
-        joinedStream.print();
+//        joinedStream.print();
+//        joinedStream.map(js -> js.toJSONString())
+//                .sinkTo(
+//                        FlinkSinkUtil.getKafkaSink(
+//                                Constant.TOPIC_CATAGE_INFO)
+//                );
 
         env.execute("Userlog");
     }

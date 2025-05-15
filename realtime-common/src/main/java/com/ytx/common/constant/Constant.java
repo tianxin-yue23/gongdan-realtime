@@ -11,6 +11,9 @@ public class Constant {
     public static final String TOPICOMMONT = "kafka_comment_tianxinyue";
     public static final String TOPIC_LOG = "tianxin_yue_log";
     public static final String TOPIC_USER = "tianxin_yue_user_info";
+    public static final String TOPIC_CATAGE_INFO = "tianxin_yue_base_category_info";
+
+    public static final String TOPIC_PAGE_INFO = "tianxin_yue_page_info";
     public static final String TOPIC_CATAGE = "tianxin_yue_base_category";
     public static final String MYSQL_HOST = "10.160.60.17";
     public static final int MYSQL_PORT = 3306;

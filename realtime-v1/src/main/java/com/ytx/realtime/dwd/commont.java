@@ -92,10 +92,6 @@ public class commont {
 //userInfoStream关联订单金额，计算年龄段 求出低价商品--低于1000
 //中价商品--1001-4000
 //高价商品 --＞4000
-        final OutputTag<JSONObject> lowPriceTag = new OutputTag<JSONObject>("low-price"){};
-        final OutputTag<JSONObject> midPriceTag = new OutputTag<JSONObject>("mid-price"){};
-        final OutputTag<JSONObject> highPriceTag = new OutputTag<JSONObject>("high-price"){};
-
         SingleOutputStreamOperator<JSONObject> userInfoStream = kafkaStrDS.map(JSON::parseObject)
                 .process(new ProcessFunction<JSONObject, JSONObject>() {
                     @Override
@@ -129,6 +125,7 @@ public class commont {
 //       "consignee_tel":"13535631299","trade_body":"Apple iPhone 12 (A2404) 64GB 黑色 支持移动联通电信5G 双卡双待手机等1件商品",
 //       "id":3709,"operate_time":1745450659000,"consignee":"成绍","create_time":1745450620000,"coupon_reduce_amount":0.0,"out_trade_no":"839634498972681",
 //       "total_amount":8197.0,"user_id":569,"province_id":16,"price_interval":"high","activity_reduce_amount":0.0}
+
         DataStream<JSONObject> joinedStream = userInfoStream
                 .keyBy(user -> user.getInteger("uid"))
                 .intervalJoin(orderInfoStream.keyBy(order -> order.getInteger("user_id")))
@@ -144,15 +141,25 @@ public class commont {
                         if (user.containsKey("age_group")) {
                             String ageGroup = user.getString("age_group");
                             String priceInterval = order.getString("price_interval");
-                            double weight = PRICE_WEIGHTS.get(priceInterval).get(ageGroup);
-                            result.put("weight", weight);
 
-                            out.collect(result);
+                            if (priceInterval != null && ageGroup != null) {
+                                Map<String, Double> weightMap = PRICE_WEIGHTS.get(priceInterval);
+                                if (weightMap != null) {
+                                    Double weight = weightMap.get(ageGroup);
+                                    if (weight != null) {
+                                        result.put("weight", weight);
+                                        out.collect(result);
+                                    }
+                                }
+                            }
                         }
+
                     }
                 });
 
         joinedStream.print();
+
+
         // 打印结果
 
 
