@@ -311,7 +311,7 @@ public class Userlog  {
 
                 }
         );
-//        category2.print();
+        category2.print();
 //        1级
         SingleOutputStreamOperator<JSONObject> category1 = category2.map(
                 new RichMapFunction<JSONObject, JSONObject>() {

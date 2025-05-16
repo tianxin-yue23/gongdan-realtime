@@ -377,7 +377,8 @@ public class basecatrge {
             }
         });
         tmp.print();
-
+//        tmp.writeAsText( "C:\\Users/86131/Desktop/output.csv").setParallelism(1);
+//        "C:\\Users/86131/Desktop/output.csv"
 
         env.execute();
     }
