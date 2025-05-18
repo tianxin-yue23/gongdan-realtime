@@ -335,7 +335,7 @@ public class Userlog  {
                     }
                 }
         );
-//        category1.print();
+        category1.print();
         KafkaSource<String> source3 = KafkaSource.<String>builder()
                 .setBootstrapServers("cdh02:9092")
                 .setTopics("tianxin_yue_dwd_traffic_page")
