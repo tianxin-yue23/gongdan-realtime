@@ -43,10 +43,9 @@ public class basecatrge {
     private static final Map<String, Map<String, Double>> PRICE_SENSITIVITY_WEIGHTS = new HashMap<>();
     // 时间行为权重映射
     private static final Map<String, Map<String, Double>> TIME_PERIOD_WEIGHTS = new HashMap<>();
-    // 时间格式化器
+//     时间格式化器
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
 
     static {
         // 低价商品权重

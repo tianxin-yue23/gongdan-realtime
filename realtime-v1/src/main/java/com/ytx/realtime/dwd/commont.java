@@ -88,7 +88,7 @@ public class commont {
 //    订单表
         SingleOutputStreamOperator<JSONObject> orderinfods = kafkadb.map(JSON::parseObject)
                 .filter(o -> o.getJSONObject("source").getString("table").equals("order_info"));
-//        orderinfods.print();
+        orderinfods.print();
 //userInfoStream关联订单金额，计算年龄段 求出低价商品--低于1000
 //中价商品--1001-4000
 //高价商品 --＞4000
