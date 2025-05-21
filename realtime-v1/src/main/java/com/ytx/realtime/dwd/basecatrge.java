@@ -242,7 +242,7 @@ public class basecatrge {
 
         DataStreamSource<String> kafkaStrus = env.fromSource(source3, WatermarkStrategy.noWatermarks(), "Kafka Source");
         SingleOutputStreamOperator<JSONObject> basecatrge = kafkaStrus.map(JSON::parseObject);
-//        basecatrge.print();
+        basecatrge.print();
 
         SingleOutputStreamOperator<JSONObject> resultStream = basecatrge.process(new ProcessFunction<JSONObject, JSONObject>() {
             @Override
