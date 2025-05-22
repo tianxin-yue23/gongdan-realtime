@@ -73,6 +73,8 @@ public class commont {
 //        SingleOutputStreamOperator<JSONObject> userInfoStream = kafkaStrDS.map(JSON::parseObject);
 //        userInfoStream.print();
 
+
+
         KafkaSource<String> source2 = KafkaSource.<String>builder()
                 .setBootstrapServers("cdh02:9092")
                 .setTopics("realtime-gd-danyu")
@@ -120,7 +122,7 @@ public class commont {
                 return afterobj;
             }
         });
-//       orderInfoStream.print();
+       orderInfoStream.print();
 //       {"payment_way":"3501","refundable_time":1746055420000,"original_total_amount":8197.0,"order_status":"1002",
 //       "consignee_tel":"13535631299","trade_body":"Apple iPhone 12 (A2404) 64GB 黑色 支持移动联通电信5G 双卡双待手机等1件商品",
 //       "id":3709,"operate_time":1745450659000,"consignee":"成绍","create_time":1745450620000,"coupon_reduce_amount":0.0,"out_trade_no":"839634498972681",
