@@ -122,6 +122,7 @@ public class commont {
                 return afterobj;
             }
         });
+
        orderInfoStream.print();
 //       {"payment_way":"3501","refundable_time":1746055420000,"original_total_amount":8197.0,"order_status":"1002",
 //       "consignee_tel":"13535631299","trade_body":"Apple iPhone 12 (A2404) 64GB 黑色 支持移动联通电信5G 双卡双待手机等1件商品",

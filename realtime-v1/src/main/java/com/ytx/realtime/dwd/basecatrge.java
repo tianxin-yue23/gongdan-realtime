@@ -148,6 +148,8 @@ public class basecatrge {
         hailanWeights.put("50+", 0.9);
         BRAND_PREFERENCE_WEIGHTS.put("联想", lianxiangWeights);
 
+
+
         Map<String, Double> xiaomiWeights = new HashMap<>();
         hailanWeights.put("18-24", 0.1);
         hailanWeights.put("25-29", 0.3);
